@@ -32,6 +32,6 @@ jobs:
       - name: Make bot request
         uses: fjogeleit/http-request-action@v1.5.0
         with:
-          url: https://agent.mail.ru/bot/v1/messages/sendText?token=${{secrets.MAILRU_BOT_TOKEN}}&chatid=${{secrets.MAILRU_CHAT_ID}}&text=${{steps.bot_message.outputs.text}}
+          url: https://agent.mail.ru/bot/v1/messages/sendText?token=${{secrets.MAILRU_BOT_TOKEN}}&chatid=${{secrets.MAILRU_CHAT_ID}}&text=test
           method: GET
   
