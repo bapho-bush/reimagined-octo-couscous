@@ -28,7 +28,7 @@ jobs:
       - name: Generate bot message 
         id: bot_message
         run: |
-          echo ##[set-output name=text;]$(echo ${{github.event.head_commit.message}})
+          echo ##[set-output name=text;]$(echo "${{github.event.head_commit.message}}")
       - name: Make bot request
         uses: fjogeleit/http-request-action@v1.5.0
         with:
