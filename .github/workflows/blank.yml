@@ -25,13 +25,23 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Извлечение текущей версии
+        shell: bash
+        run: echo "##[set-output name=version;]$(echo "1.6.2.5")"
+        id: extract_version
+                
       - name: Generate bot message 
         id: bot_message
         run: |
-          echo ##[set-output name=text;]$(echo "${{github.event.head_commit.message}}")
+          message="SonarScanner завершил проверку конфигурации ${{github.repository}} \n
+          Проанализированная версия: ${{steps.extract_version.outputs.version}} \n
+          Через несколько минут будет готов отчёт по адресу: %address%"
+          
+          echo "##[set-output name=text;]$(echo $message)"
+          
       - name: Make bot request
         uses: fjogeleit/http-request-action@v1.5.0
         with:
-          url: 'https://agent.mail.ru/bot/v1/messages/sendText?token=${{secrets.MAILRU_BOT_TOKEN}}&chatId=${{secrets.MAILRU_CHAT_ID}}&text=${{github.event.head_commit.message}}'
+          url: 'https://agent.mail.ru/bot/v1/messages/sendText?token=${{secrets.MAILRU_BOT_TOKEN}}&chatId=${{secrets.MAILRU_CHAT_ID}}&text=${{steps.bot_message.outputs.text}}'
           method: 'GET'
   
