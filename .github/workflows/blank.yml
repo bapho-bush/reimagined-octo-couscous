@@ -37,7 +37,7 @@ jobs:
       - name: Generate bot message 
         id: bot_message
         run: |
-          msg="Проанализированная версия: ыбла"
+          msg="Проанализированная версия ыбла"
                   
           msg="${msg//'%'/'%25'}"
           msg="${msg//$'\n'/'%0A'}"
