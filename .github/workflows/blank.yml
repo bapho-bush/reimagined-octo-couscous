@@ -36,10 +36,9 @@ jobs:
       - name: Generate bot message 
         id: bot_message
         run: |
-          message="SonarScanner\n
-          test"
-          
-          echo "##[set-output name=text;]$(echo $message)"
+          echo "##[set-output name=text;]$(echo "Test
+          test2
+          test3")"
           
       - name: Make bot request
         uses: fjogeleit/http-request-action@v1.5.0
