@@ -36,9 +36,9 @@ jobs:
       - name: Generate bot message 
         id: bot_message
         run: |
-          echo "##[set-output name=text;]$(echo "Test
-          test2
-          test3")"
+          echo "##[set-output name=text;]$(echo "Test\
+          test2\
+          test3\")"
           
       - name: Make bot request
         uses: fjogeleit/http-request-action@v1.5.0
