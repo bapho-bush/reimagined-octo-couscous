@@ -30,12 +30,12 @@ jobs:
         run: echo "##[set-output name=version;]$(echo "1.6.2.5")"
         id: extract_version
                 
+          #Проанализированная версия: ${{steps.extract_version.outputs.version}}
+          #Через несколько минут будет готов отчёт по адресу: %address%"                
       - name: Generate bot message 
         id: bot_message
         run: |
-          message="SonarScanner завершил проверку конфигурации ${{github.repository}}.
-          Проанализированная версия: ${{steps.extract_version.outputs.version}}
-          Через несколько минут будет готов отчёт по адресу: %address%"
+          message="SonarScanner завершил проверку конфигурации ${{github.repository}}."
           
           echo "##[set-output name=text;]$(echo $message)"
           
