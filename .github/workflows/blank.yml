@@ -33,13 +33,17 @@ jobs:
           #Проанализированная версия: ${{steps.extract_version.outputs.version}}
           #Через несколько минут будет готов отчёт по адресу: %address%"                
            #завершил проверку конфигурации ${{github.repository}}."
+       #https://github.community/t/set-output-truncates-multiline-strings/16852/3
       - name: Generate bot message 
         id: bot_message
         run: |
-          echo "test '\n'
-          test '\n'
-          test '\n'" > result.txt
-          echo "##[set-output name=text;]$(cat result.txt)"
+          msg="Проанализированная версия: ${{steps.extract_version.outputs.version}}\n
+          Через несколько минут будет готов отчёт по адресу: test"
+                  
+          msg="${msg//'%'/'%25'}"
+          msg="${msg//$'\n'/'%0A'}"
+          msg="${msg//$'\r'/'%0D'}"
+          echo "::set-output name=text::$msg"
           
       - name: Make bot request
         uses: fjogeleit/http-request-action@v1.5.0
