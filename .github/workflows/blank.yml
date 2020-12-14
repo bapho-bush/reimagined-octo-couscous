@@ -36,7 +36,7 @@ jobs:
       - name: Generate bot message 
         id: bot_message
         run: |
-          message="SonarScanner"
+          message="SonarScanner test"
           
           echo "##[set-output name=text;]$(echo $message)"
           
