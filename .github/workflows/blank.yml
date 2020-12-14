@@ -47,10 +47,9 @@ jobs:
           msg="${msg//'%'/'%25'}"
           msg="${msg//$'\n'/'%0A'}"
           msg="${msg//$'\r'/'%0D'}"
-          echo "::set-output name=text::$msg"
-          
-       - name: Invoke deployment hook
-         uses: distributhor/workflow-webhook@v1
-         env:
-           webhook_url: 'https://agent.mail.ru/bot/v1/messages/sendText'
-           data: 'token=${{secrets.MAILRU_BOT_TOKEN}}&chatId=${{secrets.MAILRU_CHAT_ID}}&text=${{steps.bot_message.outputs.text}}'
+          echo "::set-output name=text::$msg" 
+      - name: Test
+        uses: distributhor/workflow-webhook@v1
+        env:
+          webhook_url: 'https://agent.mail.ru/bot/v1/messages/sendText'
+          data: 'token=${{secrets.MAILRU_BOT_TOKEN}}&chatId=${{secrets.MAILRU_CHAT_ID}}&text=${{steps.bot_message.outputs.text}}'
