@@ -49,8 +49,8 @@ jobs:
           msg="${msg//$'\r'/'%0D'}"
           echo "::set-output name=text::$msg"
           
-      - name: Отправка сообщения ботом
-        shell: bash
-        run:
-          curl --request GET
-            --url 'https://agent.mail.ru/bot/v1/messages/sendText?token=${{secrets.MAILRU_BOT_TOKEN}}&chatId=${{secrets.MAILRU_CHAT_ID}}&text=${{steps.bot_message.outputs.text}}'
+       - name: Invoke deployment hook
+         uses: distributhor/workflow-webhook@v1
+         env:
+           webhook_url: 'https://agent.mail.ru/bot/v1/messages/sendText'
+           data: 'token=${{secrets.MAILRU_BOT_TOKEN}}&chatId=${{secrets.MAILRU_CHAT_ID}}&text=${{steps.bot_message.outputs.text}}'
