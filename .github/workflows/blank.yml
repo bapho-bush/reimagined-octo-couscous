@@ -36,9 +36,9 @@ jobs:
       - name: Generate bot message 
         id: bot_message
         run: |
-          echo "test
-          test
-          test" > result.txt
+          echo "test '\n'
+          test '\n'
+          test '\n'" > result.txt
           echo "##[set-output name=text;]$(cat result.txt)"
           
       - name: Make bot request
