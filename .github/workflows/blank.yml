@@ -33,8 +33,8 @@ jobs:
       - name: Generate bot message 
         id: bot_message
         run: |
-          message="SonarScanner завершил проверку конфигурации ${{github.repository}}. \
-          Проанализированная версия: ${{steps.extract_version.outputs.version}} \
+          message="SonarScanner завершил проверку конфигурации ${{github.repository}}.
+          Проанализированная версия: ${{steps.extract_version.outputs.version}}
           Через несколько минут будет готов отчёт по адресу: %address%"
           
           echo "##[set-output name=text;]$(echo $message)"
