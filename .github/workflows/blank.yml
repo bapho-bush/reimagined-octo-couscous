@@ -42,7 +42,7 @@ jobs:
           echo "##[set-output name=file;}$(echo $file)"
           
       - name: Склонировать скрипт
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           repository: bapho-bush/MailRuMessageSender
           token: ${{secrets.GH_PERSONAL_TOKEN}}
