@@ -39,8 +39,8 @@ jobs:
           echo "Завершены проверки для проекта ${{github.repository}}." > $file
           echo "Версия: ${{steps.extract_version.outputs.version}}" > $file
           echo "Через несколько минут результаты будут доступны по адресу ${{secrets.SONAR_ADDRESS}}" > $file
-          echo "##[set-output name=file;}$(echo "message.txt")"
-          
+          echo "##[set-output name=file;}$(cat message.txt)"
+
       - name: Склонировать скрипт
         uses: actions/checkout@v2
         with:
@@ -54,5 +54,6 @@ jobs:
       - name: Запуск скрипта
         run: |
           pip3 install --upgrade mailru-im-bot
-          python3 MailRuMessageSender.py ${{secrets.MAILRU_BOT_TOKEN}} ${{secrets.MAILRU_CHAT_ID}} ../message.txt
+          echo ${{steps.bot_message.outputs.file}} > message.txt
+          python3 MailRuMessageSender.py ${{secrets.MAILRU_BOT_TOKEN}} ${{secrets.MAILRU_CHAT_ID}} message.txt
       
