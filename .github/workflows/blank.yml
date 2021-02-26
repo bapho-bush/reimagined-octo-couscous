@@ -54,5 +54,5 @@ jobs:
       - name: Запуск скрипта
         run: |
           pip3 install --upgrade mailru-im-bot
-          python3 MailRuMessageSender.py ${{secrets.MAILRU_BOT_TOKEN}} ${{secrets.MAILRU_CHAT_ID}} message.txt
+          python3 MailRuMessageSender.py ${{secrets.MAILRU_BOT_TOKEN}} ${{secrets.MAILRU_CHAT_ID}} ../message.txt
       
