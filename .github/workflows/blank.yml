@@ -39,7 +39,7 @@ jobs:
           echo "Завершены проверки для проекта ${{github.repository}}." > $file
           echo "Версия: ${{steps.extract_version.outputs.version}}" > $file
           echo "Через несколько минут результаты будут доступны по адресу ${{secrets.SONAR_ADDRESS}}" > $file
-          echo "##[set-output name=file;}$(echo $file)"
+          echo "##[set-output name=file;}$(echo "message.txt")"
           
       - name: Склонировать скрипт
         uses: actions/checkout@v2
