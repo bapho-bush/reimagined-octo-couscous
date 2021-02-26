@@ -30,17 +30,6 @@ jobs:
         run: echo "##[set-output name=version;]$(echo "1.6.2.5")"
         id: extract_version
 
-      - name: Собрать сообщение бота 
-        id: bot_message
-        shell: bash
-        run: |
-          file=message.txt
-          touch $file
-          echo "Завершены проверки для проекта ${{github.repository}}." > $file
-          echo "Версия: ${{steps.extract_version.outputs.version}}" > $file
-          echo "Через несколько минут результаты будут доступны по адресу ${{secrets.SONAR_ADDRESS}}" > $file
-          echo "##[set-output name=message_text;]$(cat $file)"
-
       - name: Склонировать скрипт
         uses: actions/checkout@v2
         with:
@@ -54,6 +43,9 @@ jobs:
       - name: Запуск скрипта
         run: |
           pip3 install --upgrade mailru-im-bot
-          echo ${{steps.bot_message.outputs.message_text}} > message.txt
-          python3 MailRuMessageSender.py ${{secrets.MAILRU_BOT_TOKEN}} ${{secrets.MAILRU_CHAT_ID}} message.txt
-      
+          file=message.txt
+          touch $file
+          echo "Завершены проверки для проекта ${{github.repository}}." > $file
+          echo "Версия: ${{steps.extract_version.outputs.version}}" > $file
+          echo "Через несколько минут результаты будут доступны по адресу ${{secrets.SONAR_ADDRESS}}" > $file
+          python3 MailRuMessageSender.py ${{secrets.MAILRU_BOT_TOKEN}} ${{secrets.MAILRU_CHAT_ID}} $file
