@@ -37,7 +37,7 @@ jobs:
           file=message.txt
           touch $file
           echo "Завершены проверки для проекта ${{github.repository}}." > $file
-          echo "Версия: ${{steps.extract_version.version}}" > $file
+          echo "Версия: ${{steps.extract_version.outputs.version}}" > $file
           echo "Через несколько минут результаты будут доступны по адресу ${{secrets.SONAR_ADDRESS}}" > $file
           echo "##[set-output name=file;}$(echo $file)"
           
@@ -53,5 +53,5 @@ jobs:
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
       - run: |
           pip3 install --update mailru-im-bot 
-          python3 MailRuMessageSender.py ${{secrets.MAILRU_BOT_TOKEN}} ${{secrets.MAILRU_CHAT_ID}} ${{steps.bot_message.file}}
+          python3 MailRuMessageSender.py ${{secrets.MAILRU_BOT_TOKEN}} ${{secrets.MAILRU_CHAT_ID}} ${{steps.bot_message.outputs.file}}
       
